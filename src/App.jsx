@@ -45,6 +45,7 @@ export default function App() {
     });
   }
 
+  // Workaround for single tag limit
   return <>
     <form onSubmit={doSubmit} className='add-reminder-form'>
       <div className="form-rows">
