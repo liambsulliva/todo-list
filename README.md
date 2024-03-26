@@ -15,6 +15,7 @@ This React application is a simple to-do list that allows users to create tasks 
 * Warning when current date is a given task's due date.
 
 **Explanation**
+
 All logic is handled by a single component: `App.jsx`.
 
 * **Dependencies**
