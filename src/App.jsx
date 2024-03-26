@@ -3,17 +3,17 @@ import { useState } from "react"
 import "./styles.css"
 
 export default function App() {
+  // REACTive Data 🤭
   const [textEntry, setEntry] = useState("");
   const [dateEntry, setDate] = useState("");
-  const listItemRefs = useRef([]);
   const [tasks, setTasks] = useState(() => {
     const localStorageValue = localStorage.getItem('listItems');
     if (localStorageValue !== null) {
       return JSON.parse(localStorageValue); // grab localStorage items if they exist
     }
     return []; // else, return empty array
-  })
-  
+  });
+  const listItemRefs = useRef([]);
   
   useEffect(() => {
     localStorage.setItem('listItems', JSON.stringify(tasks));
@@ -30,6 +30,7 @@ export default function App() {
     e.preventDefault(); /* Stop Default HTML Behavior */
     if (textEntry.trim() !== "" && dateEntry.trim() !== "") {
       setTasks((prevTasks) => {
+        // Add new entry to existing tasks, w/ data passed from textbox
         return [...prevTasks, {id: crypto.randomUUID(), title: textEntry, date: dateEntry}];
       });
       setEntry(""); /* Reset Fields */
@@ -38,9 +39,10 @@ export default function App() {
   }
 
   function toggleComplete(id) {
+    //Filter out completed tasks from the array
     setTasks(taskList => {
       return taskList.filter(task => task.id !== id);
-    })
+    });
   }
 
   return <>
