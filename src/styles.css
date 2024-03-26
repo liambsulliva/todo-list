@@ -73,9 +73,19 @@ ul {
     display: flex;
     flex-direction: row;
   }
+
+  .slide {
+    transition: transform 0.25s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transform: translateY(-50%);
+  }
+
+  .slide.show {
+      transform: translateY(0%);
+  }
   
   p {
     margin: 5px;
+    user-select: none;
   }
   
   p:first-child {
@@ -83,6 +93,7 @@ ul {
   }
   
   input[type="checkbox"] {
+    cursor: pointer;
     margin-right: 16px;
     transform: scale(1.5);
     accent-color: #ddd;
@@ -90,5 +101,4 @@ ul {
   
   li:hover {
     background-color: #444;
-    cursor: pointer;
   }

@@ -1,17 +1,31 @@
+import { useEffect, useRef } from 'react';
 import { useState } from "react"
 import "./styles.css"
-export default function App() {
 
+export default function App() {
   const [textEntry, setEntry] = useState("");
   const [dateEntry, setDate] = useState("");
   const [tasks, setTasks] = useState([]);
+  const listItemRefs = useRef([]);
   
+  useEffect(() => {
+    listItemRefs.current.forEach((ref) => {
+      if (ref) /* Truthy */ {
+        setTimeout(() => {
+          ref.classList.add('show');
+        }, 100);
+      }
+    });
+  }, [tasks]);
+
   function doSubmit(e) {
     e.preventDefault(); /* Stop Default HTML Behavior */
     if (textEntry.trim() !== "" && dateEntry.trim() !== "") {
-      setTasks(() => {
-        return [...tasks, {id: crypto.randomUUID(), title: textEntry, date: dateEntry}];
+      setTasks((prevTasks) => {
+        return [...prevTasks, {id: crypto.randomUUID(), title: textEntry, date: dateEntry}];
       });
+      setEntry(""); /* Reset Fields */
+      setDate("");
     }
   }
 
@@ -33,15 +47,17 @@ export default function App() {
     </form>
     <h1 className="title">To-Do 📖</h1>
     <ul className="list">
-      {tasks.map(t => {
-         return <li key={t.id}>
+    {tasks.map((t, index) => {
+      return (
+        <li className="slide" key={t.id} ref={(el) => (listItemRefs.current[index] = el)}>
           <label>
             <p>{t.title}</p>
             <input onChange={() => toggleComplete(t.id)} type="checkbox" checked={t.complete}></input>
           </label>
           <p>{t.date}</p>
-          </li>
-      })}
+        </li>
+      );
+    })}
     </ul>
   </>
 }
