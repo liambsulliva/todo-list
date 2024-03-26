@@ -5,10 +5,18 @@ import "./styles.css"
 export default function App() {
   const [textEntry, setEntry] = useState("");
   const [dateEntry, setDate] = useState("");
-  const [tasks, setTasks] = useState([]);
   const listItemRefs = useRef([]);
+  const [tasks, setTasks] = useState(() => {
+    const localStorageValue = localStorage.getItem('listItems');
+    if (localStorageValue !== null) {
+      return JSON.parse(localStorageValue); // grab localStorage items if they exist
+    }
+    return []; // else, return empty array
+  })
+  
   
   useEffect(() => {
+    localStorage.setItem('listItems', JSON.stringify(tasks));
     listItemRefs.current.forEach((ref) => {
       if (ref) /* Truthy */ {
         setTimeout(() => {
