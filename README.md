@@ -6,11 +6,11 @@ This React application is a simple to-do list that allows users to create tasks 
 
 * Add new tasks with title and due date.
 * Marks tasks as complete with a checkbox.
+* Task memory via `localStorage`.
 * Animated task entry upon creation.
 
 **Unimplemented Features**
 
-* Task memory via `localStorage`.
 * CSS Animation to trigger on task completion.
 * Warning when current date is a given task's due date.
 
