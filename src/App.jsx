@@ -8,9 +8,11 @@ export default function App() {
   
   function doSubmit(e) {
     e.preventDefault(); /* Stop Default HTML Behavior */
-    setTasks(() => {
-      return [...tasks, {id: crypto.randomUUID(), title: textEntry, date: dateEntry}];
-    });
+    if (textEntry.trim() !== "" && dateEntry.trim() !== "") {
+      setTasks(() => {
+        return [...tasks, {id: crypto.randomUUID(), title: textEntry, date: dateEntry}];
+      });
+    }
   }
 
   function toggleComplete(id) {
@@ -25,7 +27,7 @@ export default function App() {
         <label htmlFor="item" className="inputLabel">I need to... </label>
         <input value={textEntry} onChange={e => setEntry(e.target.value)} type="text" className="entry"></input>
         <label htmlFor="date" className="inputLabel"> by </label>
-        <input value={dateEntry} onChange={e => setDate(e.target.value)} type="text" className="entry"></input>
+        <input value={dateEntry} onChange={e => setDate(e.target.value)} type="date" className="entry"></input>
       </div>
       <button className="add-btn">Add</button>
     </form>
